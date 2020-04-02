@@ -1,18 +1,16 @@
 
 public class Cat
 {
-    private double originWeight;
-    private double weight;
-
-    private Color catColor = Color.BLACK;
-
     public static final double MIN_WEIGHT = 1000.;
     public static final double MAX_WEIGHT = 9000.;
     public static final int EYES_COUNT = 2;
 
-    private double amountEaten;
-
     private static int count = 0;
+
+    private double originWeight;
+    private double weight;
+    private Color catColor;
+    private double amountEaten;
 
     public Cat()
     {
@@ -24,6 +22,7 @@ public class Cat
         this.weight = weight;
         originWeight = weight;
         amountEaten = 0;
+        catColor = Color.BLACK;
         if ((MIN_WEIGHT < this.weight) && (this.weight < MAX_WEIGHT))
         {
             count++;
@@ -37,15 +36,6 @@ public class Cat
         originWeight = cat.originWeight;
         amountEaten = cat.amountEaten;
         catColor = cat.catColor;
-        if ((MIN_WEIGHT < this.weight) && (this.weight < MAX_WEIGHT))
-        {
-            count++;
-        }
-    }
-
-    public Cat createTwin()
-    {
-        return new Cat(this);
     }
 
     public Color getCatColor()
@@ -58,19 +48,26 @@ public class Cat
         catColor = color;
     }
 
-    public double getEaten()
+    public Cat createTwin()
     {
-        return amountEaten;
+        return new Cat(this);
     }
 
     public void pee(Double amount)
     {
-        weight -= amount;
-        System.out.println("/Noise from tray/");
-    }
-
-    public static  int getCount() {
-        return count;
+        if ((MIN_WEIGHT < weight) && (weight < MAX_WEIGHT))
+        {
+            weight -= amount;
+            System.out.println("/Noise from tray/");
+            if (getStatus().equals("Dead"))
+            {
+                count--;
+            }
+        }
+        else
+        {
+            System.out.println("Error. Cat is not exist");
+        }
     }
 
     public void meow()
@@ -122,6 +119,15 @@ public class Cat
         {
             System.out.println("Error. Cat is not exist");
         }
+    }
+
+    public double getEaten()
+    {
+        return amountEaten;
+    }
+
+    public static  int getCount() {
+        return count;
     }
 
     public Double getWeight()

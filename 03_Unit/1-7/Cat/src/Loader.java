@@ -45,7 +45,11 @@ public class Loader
         cat2.feed(150.);
         System.out.println(cat2.getEaten());
 
+        System.out.println(Cat.getCount());
+
         Cat cat5 = new Cat(cat2);
+
+        System.out.println(Cat.getCount());
 
 //        System.out.println(cat.getStatus());
     }
