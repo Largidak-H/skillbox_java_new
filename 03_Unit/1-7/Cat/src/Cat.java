@@ -1,6 +1,5 @@
 
-public class Cat
-{
+public class Cat {
     public static final double MIN_WEIGHT = 1000.;
     public static final double MAX_WEIGHT = 9000.;
     public static final int EYES_COUNT = 2;
@@ -12,85 +11,70 @@ public class Cat
     private Color catColor;
     private double amountEaten;
 
-    public Cat()
-    {
+    public Cat() {
         this(1500.0 + 3000.0 * Math.random());
     }
 
-    public Cat(double weight)
-    {
+    public Cat(double weight) {
         this.weight = weight;
-        originWeight = weight;
-        amountEaten = 0;
-        catColor = Color.BLACK;
-        if ((MIN_WEIGHT < this.weight) && (this.weight < MAX_WEIGHT))
-        {
+        if ((MIN_WEIGHT < this.weight) && (this.weight < MAX_WEIGHT)) {
             count++;
         }
+        this.originWeight = weight;
+        this.amountEaten = 0;
+        this.catColor = Color.BLACK;
     }
 
-    public Cat(Cat cat)
-    {
-        this();
-        weight = cat.weight;
-        originWeight = cat.originWeight;
-        amountEaten = cat.amountEaten;
-        catColor = cat.catColor;
+    public Cat(Cat cat) {
+        this.weight = cat.weight;
+        if ((MIN_WEIGHT < this.weight) && (this.weight < MAX_WEIGHT)) {
+            count++;
+        }
+        this.originWeight = cat.originWeight;
+        this.amountEaten = cat.amountEaten;
+        this.catColor = cat.catColor;
     }
 
-    public Color getCatColor()
-    {
+    public Color getCatColor() {
         return catColor;
     }
 
-    public void setCatColor(Color color)
-    {
+    public void setCatColor(Color color) {
         catColor = color;
     }
 
-    public Cat createTwin()
-    {
+    public Cat createTwin() {
         return new Cat(this);
     }
 
-    public void pee(Double amount)
-    {
-        if ((MIN_WEIGHT < weight) && (weight < MAX_WEIGHT))
-        {
+    public void pee(Double amount) {
+        if ((MIN_WEIGHT < weight) && (weight < MAX_WEIGHT)) {
             weight -= amount;
             System.out.println("/Noise from tray/");
-            if (getStatus().equals("Dead"))
-            {
+            if (getStatus().equals("Dead")) {
                 count--;
             }
         }
-        else
-        {
+        else {
             System.out.println("Error. Cat is not exist");
         }
     }
 
-    public void meow()
-    {
-        if ((MIN_WEIGHT < weight) && (weight < MAX_WEIGHT))
-        {
+    public void meow() {
+        if ((MIN_WEIGHT < weight) && (weight < MAX_WEIGHT)) {
             weight -= 1;
             System.out.println("Meow");
-            if (getStatus().equals("Dead"))
-            {
+            if (getStatus().equals("Dead")) {
                 count--;
             }
         }
-        else
-        {
+        else {
             System.out.println("Error. Cat is not exist");
         }
     }
 
-    public void feed(Double amount)
-    {
-        if ((MIN_WEIGHT < weight) && (weight < MAX_WEIGHT))
-        {
+    public void feed(Double amount) {
+        if ((MIN_WEIGHT < weight) && (weight < MAX_WEIGHT)) {
             amountEaten += amount;
             weight += amount;
             if (getStatus().equals("Exploded"))
@@ -110,19 +94,16 @@ public class Cat
         {
             amountEaten += amount;
             weight += amount;
-            if (getStatus().equals("Exploded"))
-            {
+            if (getStatus().equals("Exploded")) {
                 count--;
             }
         }
-        else
-        {
+        else {
             System.out.println("Error. Cat is not exist");
         }
     }
 
-    public double getEaten()
-    {
+    public double getEaten() {
         return amountEaten;
     }
 
@@ -130,13 +111,11 @@ public class Cat
         return count;
     }
 
-    public Double getWeight()
-    {
+    public Double getWeight() {
         return weight;
     }
 
-    public String getStatus()
-    {
+    public String getStatus() {
         if(weight < MIN_WEIGHT) {
             return "Dead";
         }
