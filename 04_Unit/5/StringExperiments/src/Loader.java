@@ -1,9 +1,15 @@
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Loader {
     public static void main(String[] args) {
         String text = "Вася заработал 5000 рублей, Петя - 7563 рубля, а Маша - 30000 рублей";
-        String[] strEarnings = text.replaceAll("[^0-9]+", " ").trim().split(" ");
+        Pattern patt = Pattern.compile("(?<number>\\d+)");
+        Matcher match = patt.matcher(text);
         int sumOfEarnings = 0;
-        for (String strEarning : strEarnings) sumOfEarnings += Integer.parseInt(strEarning);
+        while (match.find()) {
+            sumOfEarnings += Integer.parseInt(match.group("number"));
+        }
         System.out.println("Общий заработок составил: " + sumOfEarnings + " руб.");
     }
 }
