@@ -1,21 +1,18 @@
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 public class Loader {
     public static void main(String[] args) {
-        Calendar calendarOld = Calendar.getInstance();
-        calendarOld.set(1989, Calendar.DECEMBER, 6);
-        Calendar calendarNow = Calendar.getInstance();
+        LocalDate dateBirthday = LocalDate.of(1989, Month.DECEMBER, 6);
+        LocalDate dateNow = LocalDate.now();
         int age = 0;
-        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy - E", Locale.ENGLISH);
-        for (int i = calendarOld.get(Calendar.YEAR); i <= calendarNow.get(Calendar.YEAR); i++) {
-            if (calendarOld.getTime().getTime() < calendarNow.getTime().getTime()) {
-                Date date = calendarOld.getTime();
-                System.out.println(age + " - " + dateFormat.format(date));
-                calendarOld.add(Calendar.YEAR, 1);
+        for (int i = dateBirthday.getYear(); i <= dateNow.getYear(); i++) {
+            if (dateBirthday.isBefore(dateNow)) {
+                System.out.println(age + " - " + dateBirthday.format(DateTimeFormatter.ofPattern
+                        ("dd.MM.yyyy - E", Locale.ENGLISH)));
+                dateBirthday = dateBirthday.plusYears(1);
                 age++;
             }
         }
