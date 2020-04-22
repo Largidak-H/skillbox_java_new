@@ -1,22 +1,22 @@
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
 public class Loader {
+    public static final double MIN_TEMP = 32;
+    public static final double MAX_TEMP = 40;
+    public static final double MIN_HEALTHY_TEMP = 36.2;
+    public static final double MAX_HEALTHY_TEMP = 36.9;
     public static void main(String[] args) {
-        float[] arrTemp = new float[30];
-        float sumTemp = 0;
+        double[] arrTemp = new double[30];
+        double sumTemp = 0;
         int countOfHealthy = 0;
         for (int i = 0; i < arrTemp.length; i++) {
-            float buffer = 32 + (float) (Math.random() * 8);
-            arrTemp[i] = new BigDecimal(buffer).setScale(1, RoundingMode.UP).floatValue();
+            arrTemp[i] = MIN_TEMP + (Math.random() * (MAX_TEMP - MIN_TEMP));
             sumTemp += arrTemp[i];
-            if (arrTemp[i] >= 36.2 && arrTemp[i] <= 36.9) {
+            if (arrTemp[i] >= MIN_HEALTHY_TEMP && arrTemp[i] <= MAX_HEALTHY_TEMP) {
                 countOfHealthy++;
             }
-            System.out.print(arrTemp[i] + " ");
+            System.out.printf("%.1f ", arrTemp[i]);
         }
-        float middleTemp = new BigDecimal(sumTemp / arrTemp.length).setScale(1, RoundingMode.UP).floatValue();
-        System.out.println("\nСредняя температура пациентов по больнице: " + middleTemp);
-        System.out.println("Количество здоровых пациентов в больнице: " + countOfHealthy);
+        double middleTemp = sumTemp / arrTemp.length;
+        System.out.printf("%nСредняя температура пациентов по больнице: %.1f %n", middleTemp);
+        System.out.printf("Количество здоровых пациентов в больнице: %d %n", countOfHealthy);
     }
 }
