@@ -3,6 +3,7 @@ public class Loader {
     public static final double MAX_TEMP = 40;
     public static final double MIN_HEALTHY_TEMP = 36.2;
     public static final double MAX_HEALTHY_TEMP = 36.9;
+
     public static void main(String[] args) {
         double[] arrTemp = new double[30];
         double sumTemp = 0;
