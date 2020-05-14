@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Loader {
-    public static ArrayList<String> Matters = new ArrayList<>();
+    public static ArrayList<String> matters = new ArrayList<>();
 
     public static void main(String[] args) {
         while (true) {
@@ -11,12 +11,11 @@ public class Loader {
             String commandLine = reader.nextLine();
             String[] arrCommand = commandLine.split("\\s+");
             String commandItem = arrCommand[0].trim().toUpperCase();
-
             switch (commandItem) {
                 case ("LIST"):
-                    if (!Matters.isEmpty()) {
-                        for (int i = 0; i < Matters.size(); i++) {
-                            System.out.printf("%d %s%n", i, Matters.get(i));
+                    if (!matters.isEmpty()) {
+                        for (int i = 0; i < matters.size(); i++) {
+                            System.out.printf("%d %s%n", i, matters.get(i));
                         }
                     } else {
                         System.out.println("Список дел пуст.");
@@ -25,15 +24,15 @@ public class Loader {
                 case ("ADD"):
                     if (arrCommand.length > 2 && isNumber(arrCommand[1])) {
                         int place = detPlace(arrCommand[1]);
-                        if (place > Matters.size() - 1) {
-                            Matters.add(getCommandText(2, arrCommand));
+                        if (place > matters.size() - 1) {
+                            matters.add(getCommandText(2, arrCommand));
                             System.out.println("Дело успешно добавлено в конец списка.");
                             continue;
                         }
-                        Matters.add(place, getCommandText(2, arrCommand));
+                        matters.add(place, getCommandText(2, arrCommand));
                         System.out.printf("Дело успешно добавлено на %d место.%n", place);
                     } else if (arrCommand.length > 1 && !isNumber(arrCommand[1])) {
-                        Matters.add(getCommandText(1, arrCommand));
+                        matters.add(getCommandText(1, arrCommand));
                         System.out.println("Дело успешно добавлено в конец списка.");
                     } else {
                         System.out.println("Неверно введена команда ADD");
@@ -42,11 +41,11 @@ public class Loader {
                 case ("EDIT"):
                     if (arrCommand.length > 2 && isNumber(arrCommand[1])) {
                         int place = detPlace(arrCommand[1]);
-                        if (place > Matters.size() - 1) {
+                        if (place > matters.size() - 1) {
                             System.out.println("Неверно введена команда EDIT");
                             break;
                         }
-                        Matters.set(place, getCommandText(2, arrCommand));
+                        matters.set(place, getCommandText(2, arrCommand));
                         System.out.printf("Дело на %d месте успешно изменено.%n", place);
                     } else {
                         System.out.println("Неверно введена команда EDIT");
@@ -55,11 +54,11 @@ public class Loader {
                 case ("DELETE"):
                     if (arrCommand.length == 2 && isNumber(arrCommand[1])) {
                         int place = detPlace(arrCommand[1]);
-                        if (place > Matters.size() - 1) {
+                        if (place > matters.size() - 1) {
                             System.out.println("Неверно введена команда DELETE");
                             break;
                         }
-                        Matters.remove(place);
+                        matters.remove(place);
                         System.out.printf("Дело успешно удалено с %d места.%n", place);
                     } else {
                         System.out.println("Неверно введена команда DELETE");
@@ -73,14 +72,7 @@ public class Loader {
     }
 
     public static boolean isNumber(String placeStr) {
-        boolean numberIs;
-        try {
-            Integer.parseInt(placeStr.trim());
-            numberIs = true;
-        } catch (Exception e) {
-            numberIs = false;
-        }
-        return numberIs;
+        return placeStr.matches("^-?\\d+$");
     }
 
     public static int detPlace(String placeStr) {
