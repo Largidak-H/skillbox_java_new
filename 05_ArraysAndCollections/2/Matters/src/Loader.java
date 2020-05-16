@@ -72,7 +72,7 @@ public class Loader {
     }
 
     public static boolean isNumber(String placeStr) {
-        return placeStr.matches("^-?\\d+$");
+        return placeStr.matches("^\\d+$");
     }
 
     public static int detPlace(String placeStr) {
