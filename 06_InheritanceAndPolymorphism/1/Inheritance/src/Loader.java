@@ -1,7 +1,6 @@
-import java.time.LocalDate;
-
 public class Loader {
     public static void main(String[] args) {
+        
         BankAccount myDepositAccount = new DepositAccount(1500);
         BankAccount friendDepositAccount = new DepositAccount(500);
         BankAccount friendCardAccount = new CardAccount(500);

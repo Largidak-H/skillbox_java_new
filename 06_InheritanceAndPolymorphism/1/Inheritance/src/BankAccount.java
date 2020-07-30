@@ -1,6 +1,6 @@
 public class BankAccount {
+
     public double accountBalance = 0;
-    boolean operation = false;
 
     public BankAccount() {
     }
@@ -9,20 +9,20 @@ public class BankAccount {
         accountBalance = startBalance;
     }
 
-    public void withdraw(double amount) {
+    public boolean withdraw(double amount) {
         if (accountBalance < amount) {
             System.out.println("На счете недостаточно средств.");
-            operation = false;
+            return false;
         } else {
             System.out.println("Со счета списаны средства в количестве - " + amount);
-            accountBalance-=amount;
-            operation = true;
+            accountBalance -= amount;
+            return true;
         }
     }
 
-    public void topUp(double amount) {
+    public void replenish(double amount) {
         System.out.println("Счет пополнен на средства в количестве - " + amount);
-        accountBalance+=amount;
+        accountBalance += amount;
     }
 
     public double getBalance() {
@@ -31,12 +31,12 @@ public class BankAccount {
     }
 
     public boolean send(BankAccount receiver, double amount) {
-        withdraw(amount);
-        if (operation) {
-            receiver.topUp(amount);
+        if (withdraw(amount)) {
+            receiver.replenish(amount);
             System.out.println("Перевод стредств в количестве - " + amount + " успешно завершен.");
+            return true;
+        } else {
+            return false;
         }
-        return operation;
     }
-
 }

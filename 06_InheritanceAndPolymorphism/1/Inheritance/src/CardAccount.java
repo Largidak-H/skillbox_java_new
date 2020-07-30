@@ -1,4 +1,6 @@
-public class CardAccount extends BankAccount{
+public class CardAccount extends BankAccount {
+
+    double percent = 1;
 
     public CardAccount() {
     }
@@ -7,7 +9,8 @@ public class CardAccount extends BankAccount{
         super(startBalance);
     }
 
-    public void withdraw(double amount) {
-        super.withdraw(amount * (1 + 0.01));
+    @Override
+    public boolean withdraw(double amount) {
+        return super.withdraw(amount * (1 + percent / 100));
     }
 }

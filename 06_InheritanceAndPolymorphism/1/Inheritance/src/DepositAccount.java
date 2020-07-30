@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 
-public class DepositAccount extends BankAccount{
+public class DepositAccount extends BankAccount {
 
     LocalDate dateForNextWithdraw;
 
@@ -11,19 +11,19 @@ public class DepositAccount extends BankAccount{
         super(startBalance);
     }
 
-    public void topUp(double amount) {
-        super.topUp(amount);
+    @Override
+    public void replenish(double amount) {
+        super.replenish(amount);
         dateForNextWithdraw = LocalDate.now().plusMonths(1);
     }
 
-    public void withdraw(double amount) {
-        if (dateForNextWithdraw != null) {
-
-        }
+    @Override
+    public boolean withdraw(double amount) {
         if (dateForNextWithdraw == null || LocalDate.now().isAfter(dateForNextWithdraw)) {
-            super.withdraw(amount);
+            return super.withdraw(amount);
         } else {
             System.out.println("С последнего пополнения счета прошло недостаточно времени для снятия средств.");
+            return false;
         }
     }
 }
