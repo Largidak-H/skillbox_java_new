@@ -12,9 +12,7 @@ public class Main {
     public static void main(String[] args) {
         ArrayList<Employee> staff = loadStaffFromFile();
 
-        staff.sort(((Comparator<Employee>) (o1, o2) -> {
-            return o1.getSalary().compareTo(o2.getSalary());
-        }).thenComparing((o1, o2) -> o1.getName().compareTo(o2.getName())));
+        staff.sort((Comparator.comparing(Employee::getSalary)).thenComparing(Employee::getName));
 
         for (Employee employee : staff) {
             System.out.println(employee);
