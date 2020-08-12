@@ -32,7 +32,7 @@ public class Main {
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Wrong command! " + e.getMessage() + ". Available command examples: \n" +
                 "add Василий Петров vasily.petrov@gmail.com +79215637722\nremove Василий Петров");
-            } catch (IllegalArgumentException ex) {
+            } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
         }
