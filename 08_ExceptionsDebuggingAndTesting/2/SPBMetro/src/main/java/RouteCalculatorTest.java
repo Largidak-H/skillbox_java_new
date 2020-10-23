@@ -1,21 +1,23 @@
 import core.Line;
 import core.Station;
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class RouteCalculatorTest extends TestCase {
+public class RouteCalculatorTest {
 
     StationIndex stationIndex;
     RouteCalculator routeCalculator;
     List<Station> route;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() {
 
-        Line line1 = new Line(1,"Именная");
+        Line line1 = new Line(1, "Именная");
         Line line2 = new Line(2, "Плодовая");
         Line line3 = new Line(3, "Водная");
 
@@ -78,35 +80,34 @@ public class RouteCalculatorTest extends TestCase {
         route.add(station11);
     }
 
+    @Test
     public void testCalculateDuration() {
         double actual = RouteCalculator.calculateDuration(route);
         double expected = 17;
-        assertEquals(expected, actual);
+        Assert.assertEquals(expected, actual, 0);
     }
 
-    public void  testGetRouteOnTheLine() {
+    @Test
+    public void testGetRouteOnTheLine() {
         List<Station> actual = routeCalculator.getShortestRoute(stationIndex.getStation("Петровская"),
                 stationIndex.getStation("Семеновская"));
         List<Station> expected = new ArrayList<>(route.subList(0, 3));
-        assertEquals(expected, actual);
+        Assert.assertEquals(expected, actual);
     }
 
-    public void  testGetRouteWithOneConnection() {
+    @Test
+    public void testGetRouteWithOneConnection() {
         List<Station> actual = routeCalculator.getShortestRoute(stationIndex.getStation("Петровская"),
                 stationIndex.getStation("Морковная"));
         List<Station> expected = new ArrayList<>(route.subList(0, 5));
-        assertEquals(expected, actual);
+        Assert.assertEquals(expected, actual);
     }
 
-    public void  testGetRouteWithTwoConnections() {
+    @Test
+    public void testGetRouteWithTwoConnections() {
         List<Station> actual = routeCalculator.getShortestRoute(stationIndex.getStation("Петровская"),
                 stationIndex.getStation("Речная"));
         List<Station> expected = new ArrayList<>(route.subList(0, 7));
-        assertEquals(expected, actual);
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
+        Assert.assertEquals(expected, actual);
     }
 }
