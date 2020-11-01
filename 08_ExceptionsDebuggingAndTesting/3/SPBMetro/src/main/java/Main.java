@@ -14,6 +14,7 @@ import java.util.Scanner;
 
 public class Main
 {
+    private static Logger logger;
 
     private static String dataFile = "src/main/resources/map.json";
     private static Scanner scanner;
@@ -24,10 +25,13 @@ public class Main
     {
         RouteCalculator calculator = getRouteCalculator();
 
+        logger = LogManager.getRootLogger();
+
         System.out.println("Программа расчёта маршрутов метрополитена Санкт-Петербурга\n");
         scanner = new Scanner(System.in);
         for(;;)
         {
+            try {
                 Station from = takeStation("Введите станцию отправления:");
                 Station to = takeStation("Введите станцию назначения:");
 
@@ -37,6 +41,11 @@ public class Main
 
                 System.out.println("Длительность: " +
                         RouteCalculator.calculateDuration(route) + " минут");
+            }
+            catch (Exception e) {
+                logger.error("Станция не найдена : " + e.getMessage());
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -74,8 +83,10 @@ public class Main
             String line = scanner.nextLine().trim();
             Station station = stationIndex.getStation(line);
             if(station != null) {
+                logger.info("Станция : " + line);
                 return station;
             }
+            logger.warn("Станция не найдена : " + line);
             System.out.println("Станция не найдена :(");
         }
     }
