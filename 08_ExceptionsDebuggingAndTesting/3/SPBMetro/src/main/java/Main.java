@@ -25,7 +25,7 @@ public class Main
     {
         RouteCalculator calculator = getRouteCalculator();
 
-        logger = LogManager.getRootLogger();
+        logger = LogManager.getLogger(Main.class);
 
         System.out.println("Программа расчёта маршрутов метрополитена Санкт-Петербурга\n");
         scanner = new Scanner(System.in);
@@ -109,6 +109,7 @@ public class Main
             parseConnections(connectionsArray);
         }
         catch(Exception ex) {
+            logger.error(ex.getMessage());
             ex.printStackTrace();
         }
     }
@@ -173,6 +174,7 @@ public class Main
             lines.forEach(line -> builder.append(line));
         }
         catch (Exception ex) {
+            logger.error(ex.getMessage());
             ex.printStackTrace();
         }
         return builder.toString();
